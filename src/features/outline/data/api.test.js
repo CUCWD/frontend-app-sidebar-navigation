@@ -75,6 +75,7 @@ describe('normalizeOutlineBlocks', () => {
       course: {},
       sections: {},
       sequences: {},
+      units: {},
     };
 
     const normalizedBlocks = normalizeOutlineBlocks(courseId, {});

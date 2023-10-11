@@ -3,17 +3,16 @@ import {
 } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import initializeStore from 'store';
+import UnitLink from './UnitLink';
 
-import SequenceLink from './SequenceLink';
-
-describe('Section', () => {
+describe('Sequence', () => {
   let store;
   let defaultSequenceProps;
 
   function renderWithProps(props) {
     const component = (
       <Provider store={store}>
-        <SequenceLink
+        <UnitLink
           {...props}
         />
       </Provider>
@@ -25,22 +24,20 @@ describe('Section', () => {
     defaultSequenceProps = {
       id: 'block-v1:edX+DemoX+Demo_Course+type@sequential+block@bcdabcdabcdabcdabcdabcdabcdabcd1',
       first: true,
-      sequence: {},
+      unit: {},
       expand: true,
       courseId: '1',
     };
     store = initializeStore();
   });
-
   test('show checked icon when complete', () => {
-    const sequence = {
+    const unit = {
       complete: true,
       title: 'Demo',
-      unitIds: {},
     };
     renderWithProps({
       ...defaultSequenceProps,
-      sequence,
+      unit,
     });
 
     const checkedButton = document.querySelector('.float-left.mt-1.text-success');
@@ -51,14 +48,13 @@ describe('Section', () => {
   });
 
   test('show unchecked icon when incomplete', () => {
-    const sequence = {
+    const unit = {
       complete: false,
       title: 'Demo',
-      unitIds: {},
     };
     renderWithProps({
       ...defaultSequenceProps,
-      sequence,
+      unit,
     });
 
     const checkedButton = document.querySelector('.float-left.mt-1.text-success');
@@ -66,5 +62,36 @@ describe('Section', () => {
 
     expect(uncheckedButton).toBeInTheDocument();
     expect(checkedButton).not.toBeInTheDocument();
+  });
+
+  test('unit is styled correctly when is first', () => {
+    const unit = {
+      complete: false,
+      title: 'Demo',
+    };
+    renderWithProps({
+      ...defaultSequenceProps,
+      unit,
+    });
+
+    const unitWrapper = document.querySelector('li.w-100.m-0.pl-4.d-flex.align-items-center');
+
+    expect(unitWrapper).not.toHaveClass('mt-2 pt-2 border-top border-light');
+  });
+
+  test('unit is styled correctly when is not first', () => {
+    const unit = {
+      complete: false,
+      title: 'Demo',
+    };
+    renderWithProps({
+      ...defaultSequenceProps,
+      unit,
+      first: false,
+    });
+
+    const unitWrapper = document.querySelector('li.w-100.m-0.pl-4.d-flex.align-items-center');
+
+    expect(unitWrapper).toHaveClass('mt-2 pt-2 border-top border-light');
   });
 });

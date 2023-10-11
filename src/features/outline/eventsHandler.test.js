@@ -1,5 +1,5 @@
-import { postEventOutlineToParent, handleOutlineEvent } from 'features/outline/eventsHandler';
 import { getConfig } from '@edx/frontend-platform';
+import { postEventOutlineToParent, handleOutlineEvent } from './eventsHandler';
 
 describe('postEventOutlineToParent', () => {
   beforeEach(() => {

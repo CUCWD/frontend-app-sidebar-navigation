@@ -7,10 +7,10 @@ import MockAdapter from 'axios-mock-adapter';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { Factory } from 'rosie';
 import { getConfig, initializeMockApp } from '@edx/frontend-platform';
-
-import Section from 'features/outline/Section';
-import { fetchCourseOutline } from 'features/outline/data';
 import { executeThunk } from 'testUtils';
+
+import Section from './Section';
+import { fetchCourseOutline } from './data';
 
 initializeMockApp();
 

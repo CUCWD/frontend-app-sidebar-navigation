@@ -51,7 +51,7 @@
     "redux": "4.2.0"
   },
   "devDependencies": {
-    "@edx/frontend-app-learning": "github:Pearson-Advance/frontend-app-learning",
+    "@edx/frontend-app-learning": "github:CUCWD/frontend-app-learning#a1416019c42eb964a768ebdf22a160fc4e357703",
     "@edx/frontend-build": "12.3.0",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "12.1.5",

@@ -14,7 +14,6 @@ export function postEventOutlineToParent(message, id) {
   const messageTargets = [
     getConfig().LEARNING_BASE_URL,
   ];
-
   messageTargets.forEach(target => {
     window.parent.postMessage(
       {

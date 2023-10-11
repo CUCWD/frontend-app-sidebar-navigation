@@ -1,55 +1,142 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { faCheckCircle as fasCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { Collapsible, IconButton } from '@edx/paragon';
+import { useSelector } from 'react-redux';
+import { faCheckCircle as fasCheckCircle, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle as farCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@edx/paragon';
-import messages from 'features/outline/messages';
-import { postEventOutlineToParent } from 'features/outline/eventsHandler';
+import messages from './messages';
+import UnitLink from './UnitLink';
 
 function SequenceLink({
   id,
-  first,
   sequence,
+  expand,
+  courseId,
 }) {
   const {
     complete,
     title,
+    unitIds,
   } = sequence;
+  const {
+    units,
+  } = useSelector(state => state.outline.outlineData);
+  const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    setOpen(expand);
+  }, [expand]);
+
+  const sequenceTitle = (
+    <div className="row w-100 m-0">
+      { unitIds.length > 0 ? (
+        <div className="row w-100 m-0">
+          <div className="col-auto p-0">
+            {complete ? (
+              <FontAwesomeIcon
+                icon={fasCheckCircle}
+                fixedWidth
+                className="float-left text-success mt-1"
+                aria-hidden="true"
+                title={messages.completedAssignment.defaultMessage}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={farCheckCircle}
+                fixedWidth
+                className="float-left text-gray-400 mt-1"
+                aria-hidden="true"
+                title={messages.incompleteAssignment.defaultMessage}
+              />
+            )}
+          </div>
+          <div className="col-10 ml-3 p-0 font-weight-bold text-dark-500">
+            <span className="align-middle">{title}</span>
+          </div>
+        </div>
+      ) : (
+        <div className="row w-100 m-0">
+          <div className="col-auto p-0">
+            {complete ? (
+              <FontAwesomeIcon
+                icon={fasCheckCircle}
+                fixedWidth
+                className="float-left text-success mt-1"
+                aria-hidden="true"
+                title={messages.completedAssignment.defaultMessage}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={farCheckCircle}
+                fixedWidth
+                className="float-left text-gray-400 mt-1"
+                aria-hidden="true"
+                title={messages.incompleteAssignment.defaultMessage}
+              />
+            )}
+          </div>
+          <div className="col-10 ml-3 p-0 font-weight-bold text-muted-500">
+            <span className="align-middle">{title} (No Units)</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 
   return (
-    <li className={`w-100 m-0 pl-3 d-flex align-items-center ${!first && 'mt-2 pt-2 border-top border-light'}`}>
-      {complete ? (
-        <FontAwesomeIcon
-          icon={fasCheckCircle}
-          fixedWidth
-          className="float-left text-success mt-1"
-          aria-hidden="true"
-          title={messages.completedAssignment.defaultMessage}
-        />
-      ) : (
-        <FontAwesomeIcon
-          icon={farCheckCircle}
-          fixedWidth
-          className="float-left text-gray-400 mt-1"
-          aria-hidden="true"
-          title={messages.incompleteAssignment.defaultMessage}
-        />
-      )}
-      <Button.Deprecated
-        className="btn-link"
-        onClick={() => { postEventOutlineToParent('outline_sidebar_navigation_started', id); }}
+    <li className="section-wrapper">
+      <Collapsible
+        className="mb-2"
+        styling="card-lg"
+        title={sequenceTitle}
+        open={open}
+        onToggle={() => { setOpen(!open); }}
+        iconWhenClosed={(
+          <IconButton
+            alt={messages.openSection.defaultMessage}
+            icon={faPlus}
+            onClick={() => { setOpen(true); }}
+            size="sm"
+          />
+        )}
+        iconWhenOpen={(
+          <IconButton
+            alt={messages.close.defaultMessage}
+            icon={faMinus}
+            onClick={() => { setOpen(false); }}
+            size="sm"
+          />
+        )}
       >
-        {title}
-      </Button.Deprecated>
+        <ol className="list-unstyled subsection-list">
+          {unitIds.length > 0 ? (
+            <div>
+              {unitIds.map((unitId, index) => (
+                <UnitLink
+                  key={unitId}
+                  id={unitId}
+                  unit={units[unitId]}
+                  first={index === 0}
+                  courseId={courseId}
+                />
+              ))}
+            </div>
+          ) : (
+            <div />
+          )}
+        </ol>
+      </Collapsible>
     </li>
   );
 }
 
 SequenceLink.propTypes = {
   id: PropTypes.string.isRequired,
-  first: PropTypes.bool.isRequired,
   sequence: PropTypes.shape().isRequired,
+  expand: PropTypes.bool.isRequired,
+  courseId: PropTypes.string.isRequired,
+
 };
 
 export default SequenceLink;

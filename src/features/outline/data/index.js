@@ -1,5 +1,5 @@
 export {
   fetchCourseOutline,
-} from 'features/outline/data/thunks';
+} from './thunks';
 
-export { reducer } from 'features/outline/data/slice';
+export { reducer } from './slice';

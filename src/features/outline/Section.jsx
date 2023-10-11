@@ -5,10 +5,10 @@ import { Collapsible, IconButton } from '@edx/paragon';
 import { faCheckCircle as fasCheckCircle, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle as farCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { handleOutlineEvent } from 'features/outline/eventsHandler';
+import { handleOutlineEvent } from './eventsHandler';
 
-import SequenceLink from 'features/outline/SequenceLink';
-import messages from 'features/outline/messages';
+import SequenceLink from './SequenceLink';
+import messages from './messages';
 
 function Section({
   courseId,
@@ -93,13 +93,13 @@ function Section({
         )}
       >
         <ol className="list-unstyled subsection-list">
-          {sequenceIds.map((sequenceId, index) => (
+          {sequenceIds.map((sequenceId) => (
             <SequenceLink
               key={sequenceId}
               id={sequenceId}
               courseId={courseId}
               sequence={sequences[sequenceId]}
-              first={index === 0}
+              expand={expand}
             />
           ))}
         </ol>

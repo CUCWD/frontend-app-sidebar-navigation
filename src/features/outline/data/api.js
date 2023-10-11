@@ -3,7 +3,7 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { logInfo } from '@edx/frontend-platform/logging';
 
 // eslint-disable-next-line import/no-self-import, import/no-cycle
-import { normalizeOutlineBlocks as exportedNormalizeOutlineBlocks } from 'features/outline/data/api';
+import { normalizeOutlineBlocks as exportedNormalizeOutlineBlocks } from './api';
 
 /**
   * A function that normalizes all blocks received from the outline API.
@@ -62,6 +62,7 @@ export function normalizeOutlineBlocks(courseId, blocks) {
     course: {},
     sections: {},
     sequences: {},
+    units: {},
   };
   Object.values(blocks).forEach(block => {
     switch (block.type) {
@@ -89,6 +90,15 @@ export function normalizeOutlineBlocks(courseId, blocks) {
           complete: block.complete,
           id: block.id,
           showLink: !!block.lms_web_url,
+          title: block.display_name,
+          unitIds: block.children || [],
+        };
+        break;
+      case 'vertical':
+        models.units[block.id] = {
+          complete: block.complete,
+          id: block.id,
+          showLink: !!block.legacy_web_url,
           title: block.display_name,
         };
         break;
