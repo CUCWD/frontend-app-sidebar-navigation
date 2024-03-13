@@ -30,104 +30,77 @@ function SequenceLink({
 
   const sequenceTitle = (
     <div className="row w-100 m-0">
-      { unitIds.length > 0 ? (
-        <div className="row w-100 m-0">
-          <div className="col-auto p-0">
-            {complete ? (
-              <FontAwesomeIcon
-                icon={fasCheckCircle}
-                fixedWidth
-                className="float-left text-success mt-1"
-                aria-hidden="true"
-                title={messages.completedAssignment.defaultMessage}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={farCheckCircle}
-                fixedWidth
-                className="float-left text-gray-400 mt-1"
-                aria-hidden="true"
-                title={messages.incompleteAssignment.defaultMessage}
-              />
-            )}
-          </div>
-          <div className="col-10 ml-3 p-0 font-weight-bold text-dark-500">
-            <span className="align-middle">{title}</span>
-          </div>
-        </div>
-      ) : (
-        <div className="row w-100 m-0">
-          <div className="col-auto p-0">
-            {complete ? (
-              <FontAwesomeIcon
-                icon={fasCheckCircle}
-                fixedWidth
-                className="float-left text-success mt-1"
-                aria-hidden="true"
-                title={messages.completedAssignment.defaultMessage}
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={farCheckCircle}
-                fixedWidth
-                className="float-left text-gray-400 mt-1"
-                aria-hidden="true"
-                title={messages.incompleteAssignment.defaultMessage}
-              />
-            )}
-          </div>
-          <div className="col-10 ml-3 p-0 font-weight-bold text-muted-500">
-            <span className="align-middle">{title} (No Units)</span>
-          </div>
-        </div>
-      )}
+      <div className="col-auto p-0">
+        {complete ? (
+          <FontAwesomeIcon
+            icon={fasCheckCircle}
+            fixedWidth
+            className="float-left text-success mt-1"
+            aria-hidden="true"
+            title={messages.completedAssignment.defaultMessage}
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={farCheckCircle}
+            fixedWidth
+            className="float-left text-gray-400 mt-1"
+            aria-hidden="true"
+            title={messages.incompleteAssignment.defaultMessage}
+          />
+        )}
+      </div>
+      <div className="col-10 ml-3 p-0 font-weight-bold text-dark-500">
+        <span className="align-middle">{title}</span>
+      </div>
     </div>
   );
 
   return (
-    <li className="section-wrapper">
-      <Collapsible
-        className="mb-2"
-        styling="card-lg"
-        title={sequenceTitle}
-        open={open}
-        onToggle={() => { setOpen(!open); }}
-        iconWhenClosed={(
-          <IconButton
-            alt={messages.openSection.defaultMessage}
-            icon={faPlus}
-            onClick={() => { setOpen(true); }}
-            size="sm"
-          />
-        )}
-        iconWhenOpen={(
-          <IconButton
-            alt={messages.close.defaultMessage}
-            icon={faMinus}
-            onClick={() => { setOpen(false); }}
-            size="sm"
-          />
-        )}
-      >
-        <ol className="list-unstyled subsection-list">
-          {unitIds.length > 0 ? (
+    <div>
+      {unitIds.length > 0
+      && (
+      <li className="section-wrapper">
+        <Collapsible
+          className="mb-2"
+          styling="card-lg"
+          title={sequenceTitle}
+          open={open}
+          onToggle={() => { setOpen(!open); }}
+          iconWhenClosed={(
+            <IconButton
+              alt={messages.openSection.defaultMessage}
+              icon={faPlus}
+              onClick={() => { setOpen(true); }}
+              size="sm"
+            />
+          )}
+          iconWhenOpen={(
+            <IconButton
+              alt={messages.close.defaultMessage}
+              icon={faMinus}
+              onClick={() => { setOpen(false); }}
+              size="sm"
+            />
+          )}
+        >
+          <ol className="list-unstyled subsection-list">
             <div>
               {unitIds.map((unitId, index) => (
                 <UnitLink
                   key={unitId}
                   id={unitId}
+                  sequenceId={id}
                   unit={units[unitId]}
                   first={index === 0}
                   courseId={courseId}
                 />
               ))}
             </div>
-          ) : (
-            <div />
-          )}
-        </ol>
-      </Collapsible>
-    </li>
+          </ol>
+        </Collapsible>
+      </li>
+      )}
+    </div>
   );
 }
 

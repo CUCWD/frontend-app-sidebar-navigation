@@ -11,12 +11,13 @@ function UnitLink({
   id,
   first,
   unit,
+  sequenceId,
 }) {
   const {
     complete,
     title,
   } = unit;
-
+  const fullId = `${sequenceId}/${id}`;
   return (
     <li className={`w-100 m-0 pl-4 d-flex align-items-center ${!first && 'mt-2 pt-2 border-top border-light'}`}>
       {complete ? (
@@ -38,7 +39,7 @@ function UnitLink({
       )}
       <Button.Deprecated
         className="btn-link"
-        onClick={() => { postEventOutlineToParent('outline_sidebar_navigation_started', id); }}
+        onClick={() => { postEventOutlineToParent('outline_sidebar_navigation_started', fullId); }}
       >
         {title}
       </Button.Deprecated>
@@ -48,6 +49,7 @@ function UnitLink({
 
 UnitLink.propTypes = {
   id: PropTypes.string.isRequired,
+  sequenceId: PropTypes.string.isRequired,
   first: PropTypes.bool.isRequired,
   unit: PropTypes.shape().isRequired,
 };
