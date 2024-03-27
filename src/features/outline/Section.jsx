@@ -15,6 +15,7 @@ function Section({
   defaultOpen,
   expand,
   section,
+  initUnitId,
 }) {
   const {
     complete,
@@ -100,7 +101,9 @@ function Section({
               courseId={courseId}
               sequence={sequences[sequenceId]}
               expand={expand}
-            />
+              defaultOpen={sequences[sequenceId].resumeBlock}
+              initUnitId={initUnitId}
+            />  
           ))}
         </ol>
       </Collapsible>
@@ -113,6 +116,7 @@ Section.propTypes = {
   defaultOpen: PropTypes.bool.isRequired,
   expand: PropTypes.bool.isRequired,
   section: PropTypes.shape().isRequired,
+  initUnitId: PropTypes.string.isRequired,
 };
 
 export default Section;

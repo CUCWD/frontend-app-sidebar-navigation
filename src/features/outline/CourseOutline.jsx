@@ -10,7 +10,10 @@ import { FAILED, LOADING } from './data/slice';
 import { handleOutlineEvent } from './eventsHandler';
 
 function CourseOutline() {
-  const { courseId: courseIdFromUrl } = useParams();
+  const { 
+    courseId: courseIdFromUrl,
+    unitId: unitIdFromUrl,
+  } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,6 +65,7 @@ function CourseOutline() {
               defaultOpen={sections[sectionId].resumeBlock}
               expand={expandAll}
               section={sections[sectionId]}
+              initUnitId={unitIdFromUrl}
             />
           ))}
         </ol>

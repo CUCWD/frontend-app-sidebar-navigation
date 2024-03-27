@@ -13,6 +13,8 @@ function SequenceLink({
   sequence,
   expand,
   courseId,
+  defaultOpen,
+  initUnitId
 }) {
   const {
     complete,
@@ -22,11 +24,19 @@ function SequenceLink({
   const {
     units,
   } = useSelector(state => state.outline.outlineData);
-  const [open, setOpen] = useState(true);
+  const isFirstUnit = unitIds.includes(initUnitId)
 
+  const [open, setOpen] = useState(true);
+  
   useEffect(() => {
-    setOpen(expand);
-  }, [expand]);
+    setOpen(expand || isFirstUnit);
+  }, [expand || isFirstUnit]);
+
+  // useEffect(() => {
+  //   setOpen(isFirstUnit);
+  // }, [isFirstUnit]);
+
+
 
   const sequenceTitle = (
     <div className="row w-100 m-0">
@@ -106,8 +116,10 @@ function SequenceLink({
 
 SequenceLink.propTypes = {
   id: PropTypes.string.isRequired,
+  initUnitId: PropTypes.string.isRequired,
   sequence: PropTypes.shape().isRequired,
   expand: PropTypes.bool.isRequired,
+  defaultOpen: PropTypes.bool.isRequired,
   courseId: PropTypes.string.isRequired,
 
 };
