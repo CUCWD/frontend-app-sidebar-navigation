@@ -12,7 +12,6 @@ import messages from './messages';
 
 function Section({
   courseId,
-  defaultOpen,
   expand,
   section,
   initUnitId,
@@ -25,8 +24,11 @@ function Section({
   const {
     sequences,
   } = useSelector(state => state.outline.outlineData);
+  // This will only open by default if the current unitId is in one of the sequences
+  const defaultOpen = Object.values(sequences).some(sequence => 
+    sequenceIds.includes(sequence.id) && sequence.unitIds.includes(initUnitId)
+  );
   const [open, setOpen] = useState(defaultOpen);
-
   useEffect(() => {
     setOpen(expand);
   }, [expand]);
@@ -113,7 +115,6 @@ function Section({
 
 Section.propTypes = {
   courseId: PropTypes.string.isRequired,
-  defaultOpen: PropTypes.bool.isRequired,
   expand: PropTypes.bool.isRequired,
   section: PropTypes.shape().isRequired,
   initUnitId: PropTypes.string.isRequired,
