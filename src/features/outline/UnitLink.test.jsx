@@ -95,6 +95,6 @@ describe('Sequence', () => {
 
     const unitWrapper = document.querySelector('li.w-100.m-0.pl-4.d-flex.align-items-center');
 
-    expect(unitWrapper).toHaveClass('mt-2 pt-2 border-top border-light');
+    expect(unitWrapper).toHaveClass('border-top border-light pt-2 bg-light pb-2');
   });
 });

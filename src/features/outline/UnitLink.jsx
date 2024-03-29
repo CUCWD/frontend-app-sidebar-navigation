@@ -20,7 +20,7 @@ function UnitLink({
   } = unit;
   const fullId = `${sequenceId}/${id}`;
   return (
-    <li className={`w-100 m-0 pl-4 d-flex ${isCurrentId && 'bg-light'} align-items-center ${!first && 'mt-2 pt-2 border-top border-light'} `}>
+    <li className={`w-100 m-0 pl-4 d-flex align-items-center ${!first && 'border-top border-light pt-2'} ${isCurrentId ? 'bg-light pb-2' : 'mb-2'} `}>
       {complete ? (
         <FontAwesomeIcon
           icon={fasCheckCircle}
