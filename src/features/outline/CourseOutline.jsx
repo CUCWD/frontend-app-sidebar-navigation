@@ -10,7 +10,7 @@ import { FAILED, LOADING } from './data/slice';
 import { handleOutlineEvent } from './eventsHandler';
 
 function CourseOutline() {
-  const { 
+  const {
     courseId: courseIdFromUrl,
     unitId: unitIdFromUrl,
   } = useParams();
