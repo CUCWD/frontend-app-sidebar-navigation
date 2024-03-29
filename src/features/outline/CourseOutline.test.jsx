@@ -22,7 +22,8 @@ describe('CourseOutline', () => {
   let store;
   let axiosMock;
   const courseId = 'course-v1:edX+DemoX+Demo_Course';
-  const outlineDataUrl = `${getConfig().LMS_BASE_URL}/api/course_home/outline/${courseId}`;
+  const initUnitId = ''
+  const outlineDataUrl = `${getConfig().LMS_BASE_URL}/api/course_home/outline/${courseId}/${initUnitId}`;
 
   async function fetchAndRender() {
     render(component);

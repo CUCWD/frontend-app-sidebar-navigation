@@ -23,11 +23,12 @@ describe('Section', () => {
 
   beforeEach(() => {
     defaultSequenceProps = {
-      id: 'block-v1:edX+DemoX+Demo_Course+type@sequential+block@bcdabcdabcdabcdabcdabcdabcdabcd1',
+      id: 'block-v1:edX+DemoX+Demo_Course+type@sequential+block@bcdabcdabcdabcdabcdabcdabcdabcd2',
       first: true,
       sequence: {},
       expand: true,
       courseId: '1',
+      initUnitId: 'block-v1:edX+DemoX+Demo_Course+type@vertical+block@bcdabcdabcdabcdabcdabcdabcdabcd1'
     };
     store = initializeStore();
   });
@@ -36,7 +37,8 @@ describe('Section', () => {
     const sequence = {
       complete: true,
       title: 'Demo',
-      unitIds: {},
+      unitIds: ['block-v1:edX+DemoX+Demo_Course+type@vertical+block@bcdabcdabcdabcdabcdabcdabcdabcd1'],
+      
     };
     renderWithProps({
       ...defaultSequenceProps,
@@ -54,7 +56,7 @@ describe('Section', () => {
     const sequence = {
       complete: false,
       title: 'Demo',
-      unitIds: {},
+      unitIds: ['0'],
     };
     renderWithProps({
       ...defaultSequenceProps,
