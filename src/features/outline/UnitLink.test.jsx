@@ -22,11 +22,14 @@ describe('Sequence', () => {
 
   beforeEach(() => {
     defaultSequenceProps = {
-      id: 'block-v1:edX+DemoX+Demo_Course+type@sequential+block@bcdabcdabcdabcdabcdabcdabcdabcd1',
+      id: 'block-v1:edX+DemoX+Demo_Course+type@vertical+block@bcdabcdabcdabcdabcdabcdabcdabcd1',
       first: true,
+      isCurrentId: true,
       unit: {},
       expand: true,
       courseId: '1',
+      initUnitId: 'block-v1:edX+DemoX+Demo_Course+type@vertical+block@bcdabcdabcdabcdabcdabcdabcdabcd1',
+      sequenceId: 'block-v1:edX+DemoX+Demo_Course+type@sequential+block@bcdabcdabcdabcdabcdabcdabcdabcd2'
     };
     store = initializeStore();
   });
