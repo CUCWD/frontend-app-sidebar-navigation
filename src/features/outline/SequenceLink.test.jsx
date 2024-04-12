@@ -6,7 +6,7 @@ import initializeStore from 'store';
 
 import SequenceLink from './SequenceLink';
 
-describe('Section', () => {
+describe('Sequence', () => {
   let store;
   let defaultSequenceProps;
 

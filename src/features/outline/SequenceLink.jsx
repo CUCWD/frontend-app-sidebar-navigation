@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import messages from './messages';
 import UnitLink from './UnitLink';
 
+import './Section.scss';
+
 function SequenceLink({
   id,
   sequence,
@@ -24,7 +26,6 @@ function SequenceLink({
     units,
   } = useSelector(state => state.outline.outlineData);
   const isCurrentUnit = unitIds.includes(initUnitId);
-
   const [open, setOpen] = useState(true);
   const flag = expand || isCurrentUnit;
   useEffect(() => {
@@ -64,7 +65,7 @@ function SequenceLink({
       && (
       <li className="section-wrapper">
         <Collapsible
-          className="mb-2"
+          className={`mb-2 ${isCurrentUnit && 'leftBorder'}`}
           styling="card-lg"
           title={sequenceTitle}
           open={open}

@@ -10,6 +10,8 @@ import { handleOutlineEvent } from './eventsHandler';
 import SequenceLink from './SequenceLink';
 import messages from './messages';
 
+import './Section.scss';
+
 function Section({
   courseId,
   expand,
@@ -74,7 +76,7 @@ function Section({
   return (
     <li className="section-wrapper">
       <Collapsible
-        className="mb-2"
+        className={`mb-2 ${defaultOpen && !open && 'leftBorder'}`}
         styling="card-lg"
         title={sectionTitle}
         open={open}
