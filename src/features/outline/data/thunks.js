@@ -1,11 +1,11 @@
 import { logError } from '@edx/frontend-platform/logging';
 
-import { getCourseOutlineData } from '../../../features/outline/data/api';
+import { getCourseOutlineData } from './api';
 import {
   fetchCourseOutlineFailure,
   fetchCourseOutlineRequest,
   fetchCourseOutlineSuccess,
-} from '../../../features/outline/data/slice';
+} from './slice';
 
 /**
   * A thunk to make all the fetching cycle of the outline.

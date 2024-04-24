@@ -6,12 +6,12 @@ import { logError } from '@edx/frontend-platform/logging';
 
 import initializeStore from 'store';
 import { executeThunk } from 'testUtils';
-import { fetchCourseOutline } from '../../features/outline/data';
+import { fetchCourseOutline } from '.';
 import {
   fetchCourseOutlineFailure,
   fetchCourseOutlineRequest,
   fetchCourseOutlineSuccess,
-} from '../../features/outline/data/slice';
+} from './slice';
 
 initializeMockApp();
 jest.mock('@edx/frontend-platform/logging');
@@ -43,6 +43,7 @@ describe('thunks tests', () => {
         course: {},
         sections: {},
         sequences: {},
+        units: {},
       },
     }));
   });
@@ -72,6 +73,7 @@ describe('thunks tests', () => {
       course: {},
       sections: {},
       sequences: {},
+      units: {},
     });
   });
 

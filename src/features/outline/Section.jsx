@@ -5,16 +5,18 @@ import { Collapsible, IconButton } from '@edx/paragon';
 import { faCheckCircle as fasCheckCircle, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle as farCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { handleOutlineEvent } from '../../features/outline/eventsHandler';
+import { handleOutlineEvent } from './eventsHandler';
 
-import SequenceLink from '../../features/outline/SequenceLink';
-import messages from '../../features/outline/messages';
+import SequenceLink from './SequenceLink';
+import messages from './messages';
+
+import './Section.scss';
 
 function Section({
   courseId,
-  defaultOpen,
   expand,
   section,
+  initUnitId,
 }) {
   const {
     complete,
@@ -24,8 +26,12 @@ function Section({
   const {
     sequences,
   } = useSelector(state => state.outline.outlineData);
-  const [open, setOpen] = useState(defaultOpen);
+  // This will only open by default if the current unitId is in one of the sequences
+  const defaultOpen = Object.values(sequences).some(
+    sequence => sequenceIds.includes(sequence.id) && sequence.unitIds.includes(initUnitId),
+  );
 
+  const [open, setOpen] = useState(defaultOpen);
   useEffect(() => {
     setOpen(expand);
   }, [expand]);
@@ -70,7 +76,7 @@ function Section({
   return (
     <li className="section-wrapper">
       <Collapsible
-        className="mb-2"
+        className={`mb-2 ${defaultOpen && !open && 'leftBorder'}`}
         styling="card-lg"
         title={sectionTitle}
         open={open}
@@ -93,13 +99,14 @@ function Section({
         )}
       >
         <ol className="list-unstyled subsection-list">
-          {sequenceIds.map((sequenceId, index) => (
+          {sequenceIds.map((sequenceId) => (
             <SequenceLink
               key={sequenceId}
               id={sequenceId}
               courseId={courseId}
               sequence={sequences[sequenceId]}
-              first={index === 0}
+              expand={expand}
+              initUnitId={initUnitId}
             />
           ))}
         </ol>
@@ -110,9 +117,9 @@ function Section({
 
 Section.propTypes = {
   courseId: PropTypes.string.isRequired,
-  defaultOpen: PropTypes.bool.isRequired,
   expand: PropTypes.bool.isRequired,
   section: PropTypes.shape().isRequired,
+  initUnitId: PropTypes.string.isRequired,
 };
 
 export default Section;

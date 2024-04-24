@@ -3,8 +3,7 @@ import {
 } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import initializeStore from 'store';
-
-import SequenceLink from './SequenceLink';
+import UnitLink from './UnitLink';
 
 describe('Sequence', () => {
   let store;
@@ -13,7 +12,7 @@ describe('Sequence', () => {
   function renderWithProps(props) {
     const component = (
       <Provider store={store}>
-        <SequenceLink
+        <UnitLink
           {...props}
         />
       </Provider>
@@ -23,26 +22,25 @@ describe('Sequence', () => {
 
   beforeEach(() => {
     defaultSequenceProps = {
-      id: 'block-v1:edX+DemoX+Demo_Course+type@sequential+block@bcdabcdabcdabcdabcdabcdabcdabcd2',
+      id: 'block-v1:edX+DemoX+Demo_Course+type@vertical+block@bcdabcdabcdabcdabcdabcdabcdabcd1',
       first: true,
-      sequence: {},
+      isCurrentId: true,
+      unit: {},
       expand: true,
       courseId: '1',
-      initUnitId: 'block-v1:edX+DemoX+Demo_Course+type@vertical+block@bcdabcdabcdabcdabcdabcdabcdabcd1'
+      initUnitId: 'block-v1:edX+DemoX+Demo_Course+type@vertical+block@bcdabcdabcdabcdabcdabcdabcdabcd1',
+      sequenceId: 'block-v1:edX+DemoX+Demo_Course+type@sequential+block@bcdabcdabcdabcdabcdabcdabcdabcd2'
     };
     store = initializeStore();
   });
-
   test('show checked icon when complete', () => {
-    const sequence = {
+    const unit = {
       complete: true,
       title: 'Demo',
-      unitIds: ['block-v1:edX+DemoX+Demo_Course+type@vertical+block@bcdabcdabcdabcdabcdabcdabcdabcd1'],
-      
     };
     renderWithProps({
       ...defaultSequenceProps,
-      sequence,
+      unit,
     });
 
     const checkedButton = document.querySelector('.float-left.mt-1.text-success');
@@ -53,14 +51,13 @@ describe('Sequence', () => {
   });
 
   test('show unchecked icon when incomplete', () => {
-    const sequence = {
+    const unit = {
       complete: false,
       title: 'Demo',
-      unitIds: ['0'],
     };
     renderWithProps({
       ...defaultSequenceProps,
-      sequence,
+      unit,
     });
 
     const checkedButton = document.querySelector('.float-left.mt-1.text-success');
@@ -68,5 +65,36 @@ describe('Sequence', () => {
 
     expect(uncheckedButton).toBeInTheDocument();
     expect(checkedButton).not.toBeInTheDocument();
+  });
+
+  test('unit is styled correctly when is first', () => {
+    const unit = {
+      complete: false,
+      title: 'Demo',
+    };
+    renderWithProps({
+      ...defaultSequenceProps,
+      unit,
+    });
+
+    const unitWrapper = document.querySelector('li.w-100.m-0.pl-4.d-flex.align-items-center');
+
+    expect(unitWrapper).not.toHaveClass('mt-2 pt-2 border-top border-light');
+  });
+
+  test('unit is styled correctly when is not first', () => {
+    const unit = {
+      complete: false,
+      title: 'Demo',
+    };
+    renderWithProps({
+      ...defaultSequenceProps,
+      unit,
+      first: false,
+    });
+
+    const unitWrapper = document.querySelector('li.w-100.m-0.pl-4.d-flex.align-items-center');
+
+    expect(unitWrapper).toHaveClass('border-top border-light pt-2 bg-light pb-2');
   });
 });

@@ -3,14 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import { Button } from '@edx/paragon';
 
-import { fetchCourseOutline } from '../../features/outline/data';
-import messages from '../../features/outline/messages';
-import Section from '../../features/outline/Section';
-import { FAILED, LOADING } from '../../features/outline/data/slice';
-import { handleOutlineEvent } from '../../features/outline/eventsHandler';
+import { fetchCourseOutline } from './data';
+import messages from './messages';
+import Section from './Section';
+import { FAILED, LOADING } from './data/slice';
+import { handleOutlineEvent } from './eventsHandler';
 
 function CourseOutline() {
-  const { courseId: courseIdFromUrl } = useParams();
+  const {
+    courseId: courseIdFromUrl,
+    unitId: unitIdFromUrl,
+  } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,9 +62,9 @@ function CourseOutline() {
             <Section
               key={sectionId}
               courseId={courseId}
-              defaultOpen={sections[sectionId].resumeBlock}
               expand={expandAll}
               section={sections[sectionId]}
+              initUnitId={unitIdFromUrl}
             />
           ))}
         </ol>

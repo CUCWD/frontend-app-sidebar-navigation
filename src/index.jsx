@@ -15,7 +15,7 @@ subscribe(APP_READY, () => {
   ReactDOM.render(
     <AppProvider store={initializeStore()}>
       <Switch>
-        <PageRoute path="/:courseId">
+        <PageRoute path="/:courseId/:unitId">
           <CourseOutline />
         </PageRoute>
       </Switch>

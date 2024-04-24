@@ -7,10 +7,10 @@ import MockAdapter from 'axios-mock-adapter';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { Factory } from 'rosie';
 import { getConfig, initializeMockApp } from '@edx/frontend-platform';
-
-import Section from '../../features/outline/Section';
-import { fetchCourseOutline } from '../../features/outline/data';
 import { executeThunk } from 'testUtils';
+
+import Section from './Section';
+import { fetchCourseOutline } from './data';
 
 initializeMockApp();
 
@@ -42,6 +42,7 @@ describe('Section', () => {
       defaultOpen: false,
       expand: false,
       section: {},
+      initUnitId: 'block-v1:edX+DemoX+Demo_Course+type@vertical+block@bcdabcdabcdabcdabcdabcdabcdabcd1',
     };
     section = {
       complete: true,
@@ -49,7 +50,7 @@ describe('Section', () => {
       title: 'Introduction',
       resumeBlock: false,
       sequenceIds: [
-        'block-v1:edX+DemoX+Demo_Course+type@sequential+block@bcdabcdabcdabcdabcdabcdabcdabcd1',
+        'block-v1:edX+DemoX+Demo_Course+type@sequential+block@bcdabcdabcdabcdabcdabcdabcdabcd2',
       ],
     };
     store = initializeStore();

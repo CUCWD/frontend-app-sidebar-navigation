@@ -9,10 +9,10 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { Factory } from 'rosie';
 import { getConfig, initializeMockApp } from '@edx/frontend-platform';
 
-import CourseOutline from '../../features/outline/CourseOutline';
-import { fetchCourseOutline } from '../../features/outline/data';
 import { executeThunk } from 'testUtils';
-import messages from '../../features/outline/messages';
+import CourseOutline from './CourseOutline';
+import { fetchCourseOutline } from './data';
+import messages from './messages';
 
 initializeMockApp();
 jest.mock('react-router');
@@ -22,7 +22,8 @@ describe('CourseOutline', () => {
   let store;
   let axiosMock;
   const courseId = 'course-v1:edX+DemoX+Demo_Course';
-  const outlineDataUrl = `${getConfig().LMS_BASE_URL}/api/course_home/outline/${courseId}`;
+  const initUnitId = ''
+  const outlineDataUrl = `${getConfig().LMS_BASE_URL}/api/course_home/outline/${courseId}/${initUnitId}`;
 
   async function fetchAndRender() {
     render(component);
