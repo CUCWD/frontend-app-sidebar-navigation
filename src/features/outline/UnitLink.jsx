@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { faCheckCircle as fasCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle as farCheckCircle } from '@fortawesome/free-regular-svg-icons';
@@ -19,8 +19,15 @@ function UnitLink({
     title,
   } = unit;
   const fullId = `${sequenceId}/${id}`;
+  const sectionRef = useRef(null);
+  useEffect(() => {
+    if (isCurrentId && sectionRef.current) {
+      sectionRef.current.scrollIntoView({behavior: 'smooth', block: 'center'});
+    }
+  }, [isCurrentId]);
+
   return (
-    <li className={`w-100 m-0 pl-4 d-flex align-items-center ${!first && 'border-top border-light pt-2'} ${isCurrentId ? 'bg-light pb-2' : 'mb-2'} `}>
+    <li ref={sectionRef} className={`w-100 m-0 pl-4 d-flex align-items-center ${!first && 'border-top border-light pt-2'} ${isCurrentId ? 'bg-light pb-2' : 'mb-2'} `}>
       {complete ? (
         <FontAwesomeIcon
           icon={fasCheckCircle}
